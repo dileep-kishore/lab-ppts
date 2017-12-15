@@ -1,7 +1,7 @@
 <template lang='pug'>
 .frontpage
   .content
-    h1 Microbiome Interaction Database
+    h1 Lab Group Meeting
     .eagle-intro
       h3
         span.logo
