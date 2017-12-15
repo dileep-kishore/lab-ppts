@@ -40,11 +40,12 @@
           ul
             li Abundance
             li Diversity
-            li Co-occurrence networks
+            li Co-occurrence interactions
         li These are already provided by some website like:
           ul
             li MGRAST
             li Qiita
+            li Metaviz
       h4(v-if="step == 4") Exploration of data
       ul(v-if="step == 4")
         li Provide access to a database of microbial interactions from various databases
@@ -56,51 +57,114 @@
             li Query microbial interactions by taxa level or based on environment or across
 
     slide(enter="zoomIn", exit="zoomOut")
-      h3 Demonstration
+      h1 Demonstration
+
+    slide(enter="zoomIn", exit="ZoomOut")
       .resizable-iframe
         iframe(src="http://microbialnet.org/mindex_x2.html" height="100%" width="100%")
 
-    slide(enter="fadeIn")
-      h3 Pipeline
-      .img-slide
-        img#pipeline-fig(src='./images/pipeline.svg', width="1600", height="890")
-
-    slide(:steps=6)
+    slide(:steps=6, enter="fadeIn")
       h3 Issues
-        .img-exp(v-if="step == 2")
-          p Sequencing method
-          img(src='./images/2_samples.svg', height="80%", width="80%")
-        .img-exp(v-if="step == 3")
-          p Clustering methods
-          img(src='./images/3_clusteringOTUs.svg', height="50%", width="50%")
-        .img-exp(v-if="step == 4")
-          p Alignment to databases
-          img(src='./images/4_alignmenttodatabases.svg', height="30%", width="30%")
-        .img-exp(v-if="step == 5")
-          p Calculation of correlations
-          img(src='./images/7_pairwisecorrelation.svg', height="50%", width="50%", v-if="step == 5")
-        .img-exp(v-if="step == 6")
-          eg-transition(enter='fadeIn', leave='fadeOut')
-            .corr-tools
-              .quarter(v-if="step >= 6")
-                p Pearson
-              .quarter(v-if="step >= 6")
-                p Spearman
-              .quarter(v-if="step >= 6")
-                p SparCC
-              .quarter(v-if="step >= 6")
-                p SpiecEasi
+      h4(v-if="step == 2") Sequencing method
+      .img-exp(v-if="step == 2")
+        img(src='./images/2_samples.svg', height="50%", width="50%")
+        ul
+          li Older studies and datasets
+          li Issues:
+          ul
+            li Different sequencing depth
+            li Different pre-processing and quality filtering
+      h4(v-if="step == 3") Clustering methods
+      .img-exp(v-if="step == 3")
+        img(src='./images/3_clusteringOTUs.svg', height="50%", width="50%")
+        ul
+          li Closed reference
+          li Open reference (Sub)
+          li Denovo clustering
+      h4(v-if="step == 4") Alignment to databases
+      .img-exp(v-if="step == 4")
+        img(src='./images/4_alignmenttodatabases.svg', height="50%", width="50%")
+        ul
+          li Greengenes
+          li Silva
+          li RDP
+      h4(v-if="step == 5") Processing methods
+      .img-exp(v-if="step == 5")
+        img(src="http://journals.plos.org/ploscompbiol/article/figure/image?size=large&id=10.1371/journal.pcbi.1003531.g001", height="50%", width="50%")
+        ul
+          li Varying library sizes
+          ul
+            li Normalization
+            li Rarefying
+            li Mixture Models
+          li Varying sparsity
+            ul
+              li Sparse samples
+              li Sparse OTUs
+      h4(v-if="step == 6") Calculation of correlations
+      .img-exp(v-if="step == 6")
+        img(src='./images/7_pairwisecorrelation.svg', height="50%", width="50%")
+        ul
+          li Compositionality
+          li Sparsity
+          li Pairwise associations
+          ul
+            li Pearson
+            li Spearman
+            li SparCC
+          li Direct associations
+          ul
+            li SpiecEasi
+            li CCLasso
+            li mLDM
+      //- .img-exp(v-if="step == 7")
+      //-   eg-transition(enter='fadeIn', leave='fadeOut')
+      //-     .corr-tools
+      //-       .quarter(v-if="step >= 7")
+      //-         p Pearson
+      //-       .quarter(v-if="step >= 7")
+      //-         p Spearman
+      //-       .quarter(v-if="step >= 7")
+      //-         p SparCC
+      //-       .quarter(v-if="step >= 7")
+      //-         p SpiecEasi
 
-    slide
-      h3 Goals - Pipeline Paper
+    slide(:steps=2)
+      h3 Goals - Pipeline Methods Paper
       ul
         li Develop a standard pipeline for the whole process
         li Study how different parameters affect the various steps in the pipeline
+        div(v-if="step == 1")
+          li Tools
+          ul
+            li dada2
+            li deblur
+            li iped
+            li Qiime2 (uses dada2 for the error model)
+            li SparCC
+            li SpiecEasi
+            li mLDM
+        div(v-if="step == 2")
+          li Voting method
+          li Decision tree
+          li Dynamic computation graph
+          .img-slide
+            img(src="")
+
+    slide(enter="fadeIn")
+      h4(style={'position': 'absolute', 'margin-top': '20%'}) Pipeline
+      .img-slide
+        img#pipeline-fig(src='./images/pipeline.svg', width="1000", height="1000")
 
     networks-slide(enter='fadeIn', leave='fadeOut')
 
+    slide(enter="slideInUp")
+      h3 Correlations
+      .img-slide
+        img(src="./images/network_comp_paper.png")
+
     slide
-      h3 What metrics do we use to gauge this?
+      h3 What metrics do we use to compare?
       ul
         li Diversity
         li Abundances
@@ -109,9 +173,14 @@
         li Connected components
         li Metabolic modeling
 
+    slide(enter="zoomIn", exit="zoomOut")
+      .resizable-iframe
+        iframe(src="http://127.0.0.1:8050/" height="100%" width="100%")
+
     slide
+      h1 Thank you!
       .center.frontpage
-        h1 Thank you!
+        img(src="https://imgs.xkcd.com/comics/standards.png")
 
 </template>
 
@@ -185,16 +254,27 @@ export default {
     }
   }
   .resizable-iframe {
-    height: 720px;
-    width: 110%;
-    overflow-x: auto;
+    height: 950px;
+    width: 130%;
+    overflow-x: hidden;
     overflow-y: hidden;
     resize: both;
     z-index: 1;
+    margin-left: -15%;
   }
   #pipeline-fig {
     z-index: 1;
-    margin-top: -70px;
+    position: absolute;
+    // margin-top: -70px;
+  }
+  .img-exp {
+    display: flex;
+
+    img {
+      margin-top: 50px;
+      padding-right: 10px;
+      border-right: dashed gray;
+    }
   }
 }
 </style>

@@ -2,6 +2,7 @@
 // website, don't forget to register your new slideshows in the list:
 export default {
   list: [
-    require('./mind/mind')
+    require('./mind/mind'),
+    require('./docking/docking')
   ]
 }
