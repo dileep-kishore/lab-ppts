@@ -30,7 +30,7 @@
       h3 Goals
       ul
        li Identify microbial metabolites that dock to the AHR active site
-       li Screen these compounds experimetally
+       li Screen these compounds experimentally
        li Use the docking energies and structural information to identify microbes that disregulate normal AHR activity
 
     slide
@@ -98,6 +98,8 @@
 
     slide
       h3 Distribution of binding energies
+      .img-slide
+        img(src="./images/dist_plot.png")
 
     slide
       h3 Experimental Results

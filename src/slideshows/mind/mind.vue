@@ -148,8 +148,8 @@
           li Voting method
           li Decision tree
           li Dynamic computation graph
-          .img-slide
-            img(src="")
+          //- .img-slide
+          //-   img(src="")
 
     slide(enter="fadeIn")
       h4(style={'position': 'absolute', 'margin-top': '20%'}) Pipeline
